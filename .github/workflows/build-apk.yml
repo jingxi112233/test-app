@@ -40,19 +40,23 @@ jobs:
       - name: Get Flutter dependencies
         run: flutter pub get
 
-      # 6. 代码分析（可选，失败不阻断构建）
+      # 6. 生成 App 图标（失败不阻断）
+      - name: Generate launcher icons
+        run: flutter pub run flutter_launcher_icons || echo "⚠️ Icon gen skipped"
+
+      # 7. 代码分析（可选，失败不阻断构建）
       - name: Analyze code
         run: flutter analyze --no-fatal-infos || true
-
-      # 7. 构建 APK（Debug 版，无需签名）
-      - name: Build APK (Debug)
-        run: flutter build apk --debug --no-tree-shake-icons
 
       # 8. 构建 APK（Release 版，使用 debug 签名）
       - name: Build APK (Release)
         run: flutter build apk --release --no-tree-shake-icons
 
-      # 9. 上传 APK 产物
+      # 9. 同时构建 Debug 版（用于测试）
+      - name: Build APK (Debug)
+        run: flutter build apk --debug --no-tree-shake-icons
+
+      # 10. 上传 APK 产物
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
