@@ -41,21 +41,25 @@ class AppTheme {
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: Colors.white,
         indicatorColor: primaryColor.withOpacity(0.1),
-        labelTextStyle: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
+        // ignore: deprecated_member_use
+        labelTextStyle: MaterialStateProperty.resolveWith((states) {
+          // ignore: deprecated_member_use
+          if (states.contains(MaterialState.selected)) {
             return const TextStyle(
               color: primaryColor,
               fontSize: 12,
               fontWeight: FontWeight.w600,
             );
           }
-          return TextStyle(
+          return const TextStyle(
             color: textSecondary,
             fontSize: 12,
           );
         }),
-        iconTheme: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
+        // ignore: deprecated_member_use
+        iconTheme: MaterialStateProperty.resolveWith((states) {
+          // ignore: deprecated_member_use
+          if (states.contains(MaterialState.selected)) {
             return const IconThemeData(color: primaryColor);
           }
           return const IconThemeData(color: Color(0xFF9CA3AF));
